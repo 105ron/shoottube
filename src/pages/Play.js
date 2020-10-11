@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import loader from './Index';
+
 class Play extends Component {
   constructor(props) {
     super(props);
@@ -29,23 +31,18 @@ class Play extends Component {
 
   render() {
     const { data: { fileName, summary, title }, loaded } = this.state;
-    const loader = (
-      <div>
-        Loading
-      </div>
-    );
     const video = (
-      <div>
-        <h2>
-          {title}
-        </h2>
-        <p>
-          {summary}
-        </p>
-        <video width="320" height="240" controls>
-          <source src={`http://localhost:8000/stream/${fileName}`} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      <div className="container">
+        <div className="row">
+          <div className="center-card st-column col-12 col-sm-10 col-md-8 col-lg-6 white card shadow p-3 mb-5 bg-white rounded">
+            <h4 className="card-title">{title}</h4>
+            <h6 className="card-subtitle mb-2 text-muted">{summary}</h6>
+            <video controls>
+              <source src={`http://localhost:8000/stream/${fileName}`} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
       </div>
     );
     return loaded

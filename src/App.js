@@ -36,7 +36,7 @@ function App() {
             </li>
           </ul>
         </nav>
-        <div className="page-wrapper">
+        <div className="page-wrapper container">
           <Switch>
             <Route exact path="/">
               <Index />

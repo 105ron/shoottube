@@ -1,14 +1,16 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
+const defaultState = {
+  selectedFile: null,
+  title: '',
+  description: '',
+};
+
 class Upload extends Component {
   constructor(props) {
     super(props);
-      this.state = {
-        selectedFile: null,
-        title: '',
-        description: '',
-      }
+      this.state = defaultState
   }
 
   fileChangeHandler = (event) => {
@@ -39,6 +41,7 @@ class Upload extends Component {
     axios.post("http://localhost:8000/upload", data, { 
     }).then(res => {
       console.log(res.statusText)
+      this.setState(defaultState)
     })
   }
 
@@ -47,32 +50,44 @@ class Upload extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-6 card shadow p-3 mb-5 bg-white rounded" style={ {margin: '30px auto'} }>
-            <form method="post" action="#" id="#">
-              <div className="form-group files" style={ {textAlign: 'center'} }>
-                <label htmlFor="title-name"style={ {display: 'block'} }>
-                  Title
-                </label>
-                <input id="titleName" type="text" name="title" onChange={this.titleChangeHandler} value={ title }/>
-                <label htmlFor="title-description"style={ {display: 'block'} }>
-                  Decription
-                </label>
-                <input id="title-description" type="text" name="description" onChange={this.descriptionChangeHandler} value={ description } />
-                <label htmlFor="file-upload"style={ {display: 'block'} }>
-                  Upload Your File
-                </label>
-                  <input id="file-upload" type="file" name="file" onChange={this.fileChangeHandler} />
-                  <button
-                    className="btn btn-success btn-block"
-                    disabled={!selectedFile}
-                    onClick={this.onClickHandler}
-                    style={ {margin: '10px auto', width: '50%'} }
-                    type="button"
-                  >
-                    Upload
-                  </button> 
-              </div>
-            </form>
+          <div className="center-card st-column col-12 col-sm-10 col-md-8 col-lg-6 white card shadow p-3 mb-5 bg-white rounded">
+            <p className="h4 mb-4">Upload Video</p>
+            <input
+              className="form-control mb-4"
+              name="title"
+              onChange={this.titleChangeHandler}
+              placeholder="Video title"
+              type="text"
+              value={ title }
+            />
+            <div class="form-group">
+              <textarea
+                className="form-control rounded-0"
+                name="description"
+                placeholder="Description of video"
+                rows="3"
+                onChange={this.descriptionChangeHandler}
+                value={ description }
+              />
+            </div>
+            <label htmlFor="file-upload" className="form-label">
+              Upload Your File
+            </label>
+              <input
+                className="form-button"
+                id="file-upload"
+                name="file"
+                onChange={this.fileChangeHandler}
+                type="file"
+              />
+              <button
+                className="btn btn-info btn-block"
+                disabled={!selectedFile}
+                onClick={this.onClickHandler}
+                type="button"
+              >
+                Upload
+              </button> 
           </div>
         </div>
       </div>
